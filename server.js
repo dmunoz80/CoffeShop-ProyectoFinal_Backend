@@ -14,7 +14,7 @@ app.use(cors());
 
 app.get("/usuarios",vrfToken, async (req, res) => {
     try {
-    const { correo } = req.params;
+    const { correo } = req.data;
     const usuarios = await getUsers(correo);
     res.json(usuarios);
 } catch (error) {
