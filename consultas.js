@@ -25,18 +25,6 @@ const addUser = async (nombre,apellido,direccion,correo,contraseña,img,Rol) => 
     return result
 }
 
-const verifyUser = async (correo, contraseña) => {
-    const result = await pool.query('SELECT * FROM usuarios WHERE correo = $1', [correo]);
-    const user = result.rows[0];
-    const passwordEncoded = user.contraseña;
-    const isPasswordCorrect = bcrypt.compareSync(contraseña, passwordEncoded);
-    if (!isPasswordCorrect) {
-        throw { code: 401, message: 'Email o contraseña incorrecta' }
-    } else {
-        return result.rows;
-    }
-}
-
 const getPost = async () => {
     const { rows } = await pool.query("SELECT * FROM comentarios")
     return rows
@@ -69,5 +57,4 @@ module.exports = {
     addPost,
     getProduct,
     addProduct,
-    verifyUser
 }
