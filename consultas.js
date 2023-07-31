@@ -9,13 +9,12 @@ const pool = new Pool({
     allowExitOnIdle: true
 })
 
-    const getUsers = async () => {
-    const { rows } = await pool.query("SELECT * FROM usuarios")
-    console.log(rows)
-    return rows
+const getUsers = async (correo) => {
+    const { result } = await pool.query('SELECT id,nombre,apellido,direccion,correo,contraseña,img,Rol FROM usuarios WHERE correo = $1', [correo]);
+    return result.rows[0];
 }
 
-    const addUser = async (nombre,apellido,direccion,correo,contraseña,img,Rol) => {
+const addUser = async (nombre,apellido,direccion,correo,contraseña,img,Rol) => {
     const user = await pool.query('SELECT * FROM usuarios WHERE correo = $1', [correo]);
     if (user.rowCount > 0) {
         throw { code: 401, message: 'Email ya registrado' }
@@ -27,7 +26,7 @@ const pool = new Pool({
 }
 
 const verifyUser = async (correo, contraseña) => {
-    const result = await pool.query('SELECT * FROM usuarios WHERE email = $1', [correo]);
+    const result = await pool.query('SELECT * FROM usuarios WHERE correo = $1', [correo]);
     const user = result.rows[0];
     const passwordEncoded = user.contraseña;
     const isPasswordCorrect = bcrypt.compareSync(contraseña, passwordEncoded);
@@ -38,7 +37,7 @@ const verifyUser = async (correo, contraseña) => {
     }
 }
 
-    const getPost = async () => {
+const getPost = async () => {
     const { rows } = await pool.query("SELECT * FROM comentarios")
     return rows
 }

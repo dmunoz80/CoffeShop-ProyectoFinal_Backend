@@ -1,7 +1,10 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const {getUsers, addUser, getPost, addPost,getProduct,addProduct, verifyUser} = require('./consultas');
+const jwt = require('jsonwebtoken');
+const {getUsers, addUser, getPost, addPost,getProduct,addProduct,verifyUser} = require('./consultas');
+const { vrfData, vrfCredencial, vrfToken } = require('./middleware');
 
 app.listen(3001, console.log("SERVIDOR ENCENDIDO EN EL PUERTO 3001"));
 
@@ -9,16 +12,17 @@ app.use(express.json())
 app.use(cors());
 
 
-app.get("/usuarios", async (req, res) => {
+app.get("/usuarios",vrfToken, async (req, res) => {
     try {
-    const usuarios = await getUsers();
+    const { correo } = req.data;
+    const usuarios = await getUsers(correo);
     res.json(usuarios);
 } catch (error) {
     res.status(500).json('error!! no fue posible conectarse a la base de datos')
     }
 });
 
-   app.post('/usuarios', async (req, res) => {
+app.post('/usuarios', vrfData, async (req, res) => {
     try {
         const {nombre,apellido,direccion,correo,contraseña,img,Rol } = req.body;
         await addUser(nombre,apellido,direccion,correo,contraseña,img,Rol);
@@ -74,5 +78,17 @@ app.post('/productos', async (req, res) => {
     res.send('Producto agregado')
 } catch (error) {
     res.status(500);
+    }
+});
+
+app.post('/login', vrfCredencial, async (req, res) => {
+    try {
+        const { correo, contraseña } = req.body;
+        const token = jwt.sign({ correo }, "AA_XX");
+        console.log('Token creado exitosamente')
+        res.send(token);
+    } catch (error) {
+        console.log(error);
+        res.status(error.code || 500).send(error);
     }
 });
