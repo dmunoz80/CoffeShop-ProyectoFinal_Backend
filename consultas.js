@@ -50,10 +50,25 @@ const addPost = async (nombre, comentario) => {
     return result
 }
 
-   module.exports = {
+const getProduct = async () => {
+    const { rows } = await pool.query("SELECT * FROM productos")
+    console.log(rows)
+    return rows
+}
+
+const addProduct = async (nombre,descripcion,precio,imagen) => {
+    const query = "INSERT INTO productos VALUES (DEFAULT, $1, $2, $3, $4)"
+    const values = [nombre, descripcion, precio, imagen]
+    const result = await pool.query(query, values)
+    return result
+}
+
+module.exports = {
     getUsers,
     addUser,
     getPost,
     addPost,
+    getProduct,
+    addProduct,
     verifyUser
 }
