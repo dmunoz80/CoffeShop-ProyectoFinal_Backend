@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const {getUsers, addUser} = require('./consultas');
+const {getUsers, addUser, getPost, addPost} = require('./consultas');
 
 app.listen(3001, console.log("SERVIDOR ENCENDIDO EN EL PUERTO 3001"));
 
@@ -16,7 +16,7 @@ app.get("/usuarios", async (req, res) => {
 } catch (error) {
     res.status(500).json('error!! no fue posible conectarse a la base de datos')
     }
-   })
+});
 
    app.post('/usuarios', async (req, res) => {
     try {
@@ -27,4 +27,28 @@ app.get("/usuarios", async (req, res) => {
         console.log(error);
         res.status(error.code || 500).send(error);
     }
-})
+});
+
+app.get('/comentarios', async (req, res) => {
+    try {
+    const posts = await getPost();
+    res.json(posts);
+} catch (error) {
+    res.status(500).json('error!! no fue posible conectarse a la base de datos')
+    }
+});
+
+app.post('/comentarios', async (req, res) => {
+    try {
+    const {nombre, comentario} = req.body
+
+    if (!nombre ||!comentario) {
+        res.status(400).json('debe ingresar todos los campos');
+     }  
+    const resp = await addPost(nombre, comentario)
+    res.json({nombre, comentario});
+    res.send('Post agregado')
+} catch (error) {
+    res.status(500);
+    }
+});

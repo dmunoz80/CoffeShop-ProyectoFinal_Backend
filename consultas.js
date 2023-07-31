@@ -1,5 +1,6 @@
 const { Pool } = require('pg');
 const bcrypt = require('bcryptjs');
+const { query } = require('express');
 
 const pool = new Pool({
     host: 'localhost',
@@ -9,13 +10,13 @@ const pool = new Pool({
     allowExitOnIdle: true
 })
 
-const getUsers = async () => {
+    const getUsers = async () => {
     const { rows } = await pool.query("SELECT * FROM usuarios")
     console.log(rows)
     return rows
-   }
+}
 
-   const addUser = async (nombre,apellido,direccion,correo,img,Rol) => {
+    const addUser = async (nombre,apellido,direccion,correo,img,Rol) => {
     const user = await pool.query('SELECT * FROM usuarios WHERE correo = $1', [correo]);
     if (user.rowCount > 0) {
         throw { code: 401, message: 'Email ya registrado' }
@@ -26,7 +27,21 @@ const getUsers = async () => {
     return result
 }
 
+    const getPost = async () => {
+    const { rows } = await pool.query("SELECT * FROM comentarios")
+    return rows
+}
+
+const addPost = async (nombre, comentario) => {
+    const query = "INSERT INTO comentarios VALUES (DEFAULT, $1, $2)"
+    const values = [nombre, comentario]
+    const result = await pool.query(query, values)
+    return "Post agregado exitosamente!!"
+}
+
    module.exports = {
     getUsers,
-    addUser
+    addUser,
+    getPost,
+    addPost
 }
