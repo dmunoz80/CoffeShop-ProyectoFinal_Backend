@@ -24,13 +24,14 @@ CREATE TABLE IF NOT EXISTS USUARIOS (
     apellido VARCHAR(50), 
     direccion VARCHAR(50), 
     correo VARCHAR(50),
+    contraseña VARCHAR(50),
     img VARCHAR,
     Rol VARCHAR);
 
 -----------------Datos Tabla Ususarios-------------------
 INSERT INTO USUARIOS values
-(DEFAULT,'John','Doe','Av. Providencia','johndoe@correo.com','https://randomuser.me/api/portraits/men/51.jpg','user'),
-(DEFAULT,'Jane','Smith','Av. Pedro Montt','janesmith@correo.com','https://randomuser.me/api/portraits/women/17.jpg','admin');
+(DEFAULT,'John','Doe','Av. Providencia','johndoe@correo.com','password123','https://randomuser.me/api/portraits/men/51.jpg','user'),
+(DEFAULT,'Jane','Smith','Av. Pedro Montt','janesmith@correo.com','password456','https://randomuser.me/api/portraits/women/17.jpg','admin');
 
 -------------Tabla Comentarios---------------
 CREATE TABLE IF NOT EXISTS COMENTARIOS (

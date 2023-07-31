@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const {getUsers, addUser, getPost, addPost} = require('./consultas');
+const {getUsers, addUser, getPost, addPost,verifyUser} = require('./consultas');
 
 app.listen(3001, console.log("SERVIDOR ENCENDIDO EN EL PUERTO 3001"));
 
@@ -20,8 +20,8 @@ app.get("/usuarios", async (req, res) => {
 
    app.post('/usuarios', async (req, res) => {
     try {
-        const { nombre,apellido,direccion,correo,img,Rol } = req.body;
-        await addUser(nombre,apellido,direccion,correo,img,Rol);
+        const {nombre,apellido,direccion,correo,contraseña,img,Rol } = req.body;
+        await addUser(nombre,apellido,direccion,correo,contraseña,img,Rol);
         res.status(201).send('Usuario creado exitosamente');
     } catch (error) {
         console.log(error);
