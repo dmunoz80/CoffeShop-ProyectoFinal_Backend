@@ -26,7 +26,7 @@ const vrfToken = (req, res, next) => {
         if(!Authorization) {
             return res.status(401).json({ mensaje: 'Token no existe' });
         }
-        const token = Authorization.split("Bearer")[1];
+        const token = Authorization.split('Bearer ')[1];
         const verifyToken = jwt.verify(token, "AA_XX");
         req.data = verifyToken;
         console.log('Token OK');
