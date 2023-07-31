@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const {getUsers, addUser, getPost, addPost,verifyUser} = require('./consultas');
+const {getUsers, addUser, getPost, addPost,getProduct,addProduct, verifyUser} = require('./consultas');
 
 app.listen(3001, console.log("SERVIDOR ENCENDIDO EN EL PUERTO 3001"));
 
@@ -47,7 +47,31 @@ app.post('/comentarios', async (req, res) => {
      }  
     const resp = await addPost(nombre, comentario)
     res.json({nombre, comentario});
-    res.send('Post agregado')
+    res.send('Comentario agregado')
+} catch (error) {
+    res.status(500);
+    }
+});
+
+app.get('/productos', async (req, res) => {
+    try {
+    const product = await getProduct();
+    res.json(product);
+} catch (error) {
+    res.status(500).json('error!! no fue posible conectarse a la base de datos')
+    }
+});
+
+app.post('/productos', async (req, res) => {
+    try {
+    const {nombre, descripcion,precio,imagen} = req.body
+
+    if (!nombre ||!descripcion||!precio||!imagen) {
+        res.status(400).json('debe ingresar todos los campos');
+     }  
+    const resp = await addProduct(nombre, descripcion,precio,imagen)
+    res.json({nombre, descripcion,precio,imagen});
+    res.send('Producto agregado')
 } catch (error) {
     res.status(500);
     }
