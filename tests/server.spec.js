@@ -1,6 +1,7 @@
 const request = require("supertest");
 const server = require("../server");
 
+const tokenEjemplo = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjp7Im5vbWJyZSI6IkpvaG4iLCJhcGVsbGlkbyI6IkRvZSIsImRpcmVjY2lvbiI6IkF2LiBQcm92aWRlbmNpYSIsImNvcnJlbyI6ImpvaG5kb2VAY29ycmVvLmNvbSIsImNvbnRyYXNlbmEiOiJwYXNzd29yZDEyMyIsImltZyI6Imh0dHBzOi8vcmFuZG9tdXNlci5tZS9hcGkvcG9ydHJhaXRzL21lbi81MS5qcGciLCJyb2wiOiJ1c2VyIn0sImlhdCI6MTY5MTAxNDY1OX0.pIsKH-vS1AIb85NTKLUxzEv-xwEeemE5YMKb-adwLcg"
 
 describe("Pruebas de rutas existentes en la API", () => {
 
@@ -17,15 +18,14 @@ describe("Pruebas de rutas existentes en la API", () => {
 
     })
 
-    it("Obtener status code 200 al agregar nuevo comentario", async () => {
-        const comentario = {nombre:"prueba", comentario:"comentario de prueba"};
-        const res = await request(server).post("/comentarios").send(comentario);
+    it("Obtener status code 200 al agregar nuevo comentario con token válido", async () => {
+        const mensaje = {titulo:"nombreprueba", comentario:"apellidoprueba"};
+        const token = tokenEjemplo
+        const res = await request(server).post("/comentarios").set('Authorization', `Bearer ${token}`).send(mensaje);
 
         const status = res.statusCode;
-        const comentarios = res.body
         
         expect(status).toBe(200);
-        expect(comentarios).toEqual(comentario);
 
     })
 
@@ -41,7 +41,7 @@ describe("Pruebas de rutas existentes en la API", () => {
     })
 
     it('Prueba status code 400, login de usuario registrado con datos incompletos', async () => {
-        const user = {correo:'johndoe@correo.com',contraseña:''};
+        const user = {correo:'johndoe@correo.com', contrasena:''};
         const res = await request(server).post('/login').send(user);
 
         const status = res.statusCode;
