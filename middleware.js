@@ -36,6 +36,7 @@ const vrfToken = (req, res, next) => {
     }
 }
 
+
 module.exports = {
     vrfData,
     vrfCredencial,

@@ -30,7 +30,7 @@ describe("Pruebas de rutas existentes en la API", () => {
     })
 
     it("Obtener status code 400 al intentar agregar un usuario con datos incompletos", async () => {
-        const user = {nombre:"prueba", apellido:"apellidoprueba"};
+        const user = {nombre:"nombreprueba", apellido:"apellidoprueba"};
         const res = await request(server).post("/usuarios").send(user);
 
         const status = res.statusCode;
@@ -40,5 +40,15 @@ describe("Pruebas de rutas existentes en la API", () => {
         expect(mensaje).toHaveProperty('mensaje', 'Todos los datos son obligatorios');
     })
 
+    it('Prueba status code 400, login de usuario registrado con datos incompletos', async () => {
+        const user = {correo:'johndoe@correo.com',contraseña:''};
+        const res = await request(server).post('/login').send(user);
+
+        const status = res.statusCode;
+        const mensaje = res.body
+
+        expect(status).toBe(400);
+        expect(mensaje).toHaveProperty('mensaje', 'correo y contraseña son obligatorios');
+    });
 
 });

@@ -50,6 +50,7 @@ const addProduct = async (nombre,descripcion,precio,imagen) => {
     return result
 }
 
+
 module.exports = {
     getUsers,
     addUser,
