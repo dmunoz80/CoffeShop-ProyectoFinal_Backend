@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken');
 
 const vrfData = (req, res, next) => {
-    const { nombre,apellido,direccion,correo,contraseña,img,Rol } = req.body;
-    if (!nombre || !apellido || !direccion || !correo || !contraseña || !img || !Rol) {
+    const { nombre,apellido,direccion,correo,contrasena,img,Rol } = req.body;
+    if (!nombre || !apellido || !direccion || !correo || !contrasena || !img || !Rol) {
         console.log('Todos los datos son obligatorios')
         return res.status(400).json({ mensaje: 'Todos los datos son obligatorios' });
     }
@@ -11,9 +11,9 @@ const vrfData = (req, res, next) => {
 }
 
 const vrfCredencial = (req, res, next) => {
-    const { correo, contraseña } = req.body;
+    const { correo, contrasena } = req.body;
     console.log(req)
-    if (!correo || !contraseña) {
+    if (!correo || !contrasena) {
         console.log('correo y contraseña son obligatorios')
         return res.status(400).json({ mensaje: 'correo y contraseña son obligatorios' });
     }
@@ -28,7 +28,7 @@ const vrfToken = (req, res, next) => {
             return res.status(401).json({ mensaje: 'Token no existe' });
         }
         const token = Authorization.split('Bearer ')[1];
-        const verifyToken = jwt.verify(token, "AA_XX");
+        const verifyToken = jwt.verify(token, process.env.JWT_SECRET);
         req.data = verifyToken;
         console.log('Token OK');
         next();
