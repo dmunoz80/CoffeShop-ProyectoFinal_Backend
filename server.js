@@ -90,12 +90,12 @@ app.post('/login', vrfCredencial, async (req, res) => {
         const usuario = await getUser(correo, contraseña) 
         if (!usuario) {
             res.status(401)
-            res.send("no autorizado")
+            res.send({mensaje:"no autorizado"})
             return
         }
         const token = jwt.sign({ usuario }, "AA_XX");
         console.log('Token creado exitosamente')
-        res.send(token);
+        res.send({token:token});
     } catch (error) {
         console.log(error);
         res.status(error.code || 500).send(error);
