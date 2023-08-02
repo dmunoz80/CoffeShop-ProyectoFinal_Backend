@@ -1,3 +1,4 @@
+require('dotenv').config();
 const { Pool } = require('pg');
 const bcrypt = require('bcryptjs');
 
@@ -10,25 +11,25 @@ const pool = new Pool({
 })
 
 const getUsers = async (correo) => {
-    const { result } = await pool.query('SELECT id,nombre,apellido,direccion,correo,contraseña,img,Rol FROM usuarios WHERE correo = $1', [correo]);
+    const { result } = await pool.query('SELECT id,nombre,apellido,direccion,correo,contrasena,img,Rol FROM usuarios WHERE correo = $1', [correo]);
     return result.rows[0];
 }
-const getUser = async (correo, contraseña) => {
-    const query = 'SELECT nombre,apellido,direccion,correo,img,Rol FROM usuarios WHERE correo = $1 AND contraseña = $2'
-    const values = [correo, contraseña]
+const getUser = async (correo, contrasena) => {
+    const query = 'SELECT nombre,apellido,direccion,correo,contrasena,img,Rol FROM usuarios WHERE correo = $1 AND contrasena = $2';
+    const values = [correo, contrasena];
     const result = await pool.query(query, values);
     return result.rows.length>0 && result.rows[0];
 
 
 }
 
-const addUser = async (nombre,apellido,direccion,correo,contraseña,img,Rol) => {
+const addUser = async (nombre,apellido,direccion,correo,contrasena,img,Rol) => {
     const user = await pool.query('SELECT * FROM usuarios WHERE correo = $1', [correo]);
     if (user.rowCount > 0) {
         throw { code: 401, message: 'Email ya registrado' }
     }
     const query = 'INSERT INTO usuarios VALUES (DEFAULT, $1, $2, $3, $4, $5, $6, $7)';
-    const values = [nombre,apellido,direccion,correo,contraseña,img,Rol];
+    const values = [nombre,apellido,direccion,correo,contrasena,img,Rol];
     const result = await pool.query(query, values);
     return result
 }

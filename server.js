@@ -26,8 +26,8 @@ app.get("/usuarios",vrfToken, async (req, res) => {
 
 app.post('/usuarios', vrfData, async (req, res) => {
     try {
-        const {nombre,apellido,direccion,correo,contraseña,img,Rol } = req.body;
-        await addUser(nombre,apellido,direccion,correo,contraseña,img,Rol);
+        const {nombre,apellido,direccion,correo,contrasena,img,Rol } = req.body;
+        await addUser(nombre,apellido,direccion,correo,contrasena,img,Rol);
         res.status(201).send('Usuario creado exitosamente');
     } catch (error) {
         console.log(error);
@@ -86,14 +86,14 @@ app.post('/productos', async (req, res) => {
 
 app.post('/login', vrfCredencial, async (req, res) => {
     try {
-        const { correo, contraseña } = req.body;
-        const usuario = await getUser(correo, contraseña) 
+        const { correo, contrasena } = req.body;
+        const usuario = await getUser(correo, contrasena) 
         if (!usuario) {
             res.status(401)
             res.send({mensaje:"no autorizado"})
             return
         }
-        const token = jwt.sign({ usuario }, "AA_XX");
+        const token = jwt.sign({ usuario }, process.env.JWT_SECRET);
         console.log('Token creado exitosamente')
         res.send({token:token});
     } catch (error) {
