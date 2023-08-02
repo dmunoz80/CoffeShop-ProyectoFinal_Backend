@@ -6,7 +6,8 @@ const jwt = require('jsonwebtoken');
 const {getUsers, addUser, getPost, addPost,getProduct,addProduct,verifyUser} = require('./consultas');
 const { vrfData, vrfCredencial, vrfToken } = require('./middleware');
 
-app.listen(3001, console.log("SERVIDOR ENCENDIDO EN EL PUERTO 3001"));
+app.listen(3000, console.log("SERVIDOR ENCENDIDO EN EL PUERTO 3000"));
+module.exports = app;
 
 app.use(express.json()) 
 app.use(cors());
@@ -65,6 +66,7 @@ app.get('/productos', async (req, res) => {
     res.status(500).json('error!! no fue posible conectarse a la base de datos')
     }
 });
+
 
 app.post('/productos', async (req, res) => {
     try {
