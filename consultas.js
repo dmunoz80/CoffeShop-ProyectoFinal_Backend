@@ -2,16 +2,24 @@ const { Pool } = require('pg');
 const bcrypt = require('bcryptjs');
 
 const pool = new Pool({
-    host: 'localhost',
-    user: 'postgres',
-    password: '898998',
-    database: 'proyectofinal_grupo_4',
+    host: process.env.DB_HOST,
+    user: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
     allowExitOnIdle: true
 })
 
 const getUsers = async (correo) => {
     const { result } = await pool.query('SELECT id,nombre,apellido,direccion,correo,contraseña,img,Rol FROM usuarios WHERE correo = $1', [correo]);
     return result.rows[0];
+}
+const getUser = async (correo, contraseña) => {
+    const query = 'SELECT nombre,apellido,direccion,correo,img,Rol FROM usuarios WHERE correo = $1 AND contraseña = $2'
+    const values = [correo, contraseña]
+    const result = await pool.query(query, values);
+    return result.rows.length>0 && result.rows[0];
+
+
 }
 
 const addUser = async (nombre,apellido,direccion,correo,contraseña,img,Rol) => {
@@ -52,6 +60,7 @@ const addProduct = async (nombre,descripcion,precio,imagen) => {
 
 module.exports = {
     getUsers,
+    getUser,
     addUser,
     getPost,
     addPost,

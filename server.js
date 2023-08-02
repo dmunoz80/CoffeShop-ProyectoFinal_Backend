@@ -3,8 +3,9 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
-const {getUsers, addUser, getPost, addPost,getProduct,addProduct,verifyUser} = require('./consultas');
+const {getUsers, getUser, addUser, getPost, addPost,getProduct,addProduct,verifyUser} = require('./consultas');
 const { vrfData, vrfCredencial, vrfToken } = require('./middleware');
+
 
 app.listen(3000, console.log("SERVIDOR ENCENDIDO EN EL PUERTO 3000"));
 module.exports = app;
@@ -86,7 +87,13 @@ app.post('/productos', async (req, res) => {
 app.post('/login', vrfCredencial, async (req, res) => {
     try {
         const { correo, contraseña } = req.body;
-        const token = jwt.sign({ correo }, "AA_XX");
+        const usuario = await getUser(correo, contraseña) 
+        if (!usuario) {
+            res.status(401)
+            res.send("no autorizado")
+            return
+        }
+        const token = jwt.sign({ usuario }, "AA_XX");
         console.log('Token creado exitosamente')
         res.send(token);
     } catch (error) {
