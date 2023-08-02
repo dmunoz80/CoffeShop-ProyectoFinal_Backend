@@ -32,19 +32,24 @@ const addUser = async (nombre,apellido,direccion,correo,contrasena,img,Rol) => {
     const values = [nombre,apellido,direccion,correo,contrasena,img,Rol];
     const result = await pool.query(query, values);
     return result
-}
+};
 
 const getPost = async () => {
-    const { rows } = await pool.query("SELECT * FROM comentarios")
-    return rows
-}
+    const query = 'SELECT * FROM comentarios';
+    try {
+      const { rows } = await pool.query(query);
+      return rows;
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
 
-const addPost = async (nombre, comentario) => {
-    const query = "INSERT INTO comentarios VALUES (DEFAULT, $1, $2)"
-    const values = [nombre, comentario]
-    const result = await pool.query(query, values)
+  const addPost = async (titulo,comentario) => {
+    const query = 'INSERT INTO comentarios VALUES (DEFAULT, $1, $2) RETURNING *';
+    const values = [titulo, comentario];
+    const result = await pool.query(query, values);
     return result
-}
+  };
 
 const getProduct = async () => {
     const { rows } = await pool.query("SELECT * FROM productos")
@@ -65,7 +70,7 @@ module.exports = {
     getUser,
     addUser,
     getPost,
-    addPost,
     getProduct,
     addProduct,
-}
+    addPost,
+};

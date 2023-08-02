@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
-const {getUsers, getUser, addUser, getPost, addPost,getProduct,addProduct,verifyUser} = require('./consultas');
+const {getUsers, getUser, addUser, getPost, addPost,getProduct,addProduct} = require('./consultas');
 const { vrfData, vrfCredencial, vrfToken } = require('./middleware');
 
 
@@ -44,20 +44,16 @@ app.get('/comentarios', async (req, res) => {
     }
 });
 
-app.post('/comentarios', async (req, res) => {
-    try {
-    const {nombre, comentario} = req.body
 
-    if (!nombre ||!comentario) {
-        res.status(400).json('debe ingresar todos los campos');
-     }  
-    const resp = await addPost(nombre, comentario)
-    res.json({nombre, comentario});
-    res.send('Comentario agregado')
-} catch (error) {
-    res.status(500);
+app.post('/comentarios',vrfToken, async (req, res) => {
+    try {
+        const {titulo, comentario} = req.body;
+        await addPost(titulo, comentario);
+        res.status(200).send('Comentario Ingresado exitosamente');
+    } catch (error) {
+        res.status(500);
     }
-});
+  });
 
 app.get('/productos', async (req, res) => {
     try {

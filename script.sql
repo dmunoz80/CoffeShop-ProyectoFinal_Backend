@@ -36,14 +36,14 @@ INSERT INTO USUARIOS values
 -------------Tabla Comentarios---------------
 CREATE TABLE IF NOT EXISTS COMENTARIOS (
     id SERIAL PRIMARY KEY, 
-    nombre VARCHAR(50),
+    titulo VARCHAR(50),
     comentario VARCHAR(50)
     );
 
 ---------Datos Tabla comentarios-----------------
 INSERT INTO COMENTARIOS values
-(DEFAULT, 'John Doe', 'excelente atención'),
-(DEFAULT, 'Jane Smith', 'un muy buen lugar para los fanáticos del cafe');
+(DEFAULT, 'café capuccino', 'excelente atención'),
+(DEFAULT, 'muy buena atención', 'un muy buen lugar para los fanáticos del cafe');
 
 -------------------Tabla usuarios_comentarios-------------------------------
 CREATE TABLE IF NOT EXISTS USUARIOS_COMENTARIOS(
