@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "server": "nodemon server.js",
+    "server": "source .env && nodemon server.js",
     "test": "jest --forceExit"
   },
   "keywords": [],
