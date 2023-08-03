@@ -93,6 +93,7 @@ app.post('/login', vrfCredencial, async (req, res) => {
             res.send({mensaje:"no autorizado"})
             return
         }
+        delete usuario["contrasena"]
         const token = jwt.sign({ usuario }, process.env.JWT_SECRET);
         console.log('Token creado exitosamente')
         res.send({token:token});
