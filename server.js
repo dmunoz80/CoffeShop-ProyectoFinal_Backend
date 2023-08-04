@@ -44,11 +44,10 @@ app.get('/comentarios', async (req, res) => {
     }
 });
 
-
 app.post('/comentarios',vrfToken, async (req, res) => {
     try {
-        const {titulo, comentario} = req.body;
-        await addPost(titulo, comentario);
+        const {title, comment} = req.body;
+        await addPost(title, comment);
         res.status(200).send('Comentario Ingresado exitosamente');
     } catch (error) {
         res.status(500);
