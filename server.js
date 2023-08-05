@@ -46,8 +46,9 @@ app.get('/comentarios', async (req, res) => {
 
 app.post('/comentarios',vrfToken, async (req, res) => {
     try {
-        const {title, comment} = req.body;
-        await addPost(title, comment);
+        const {title, comment,user_id} = req.body;
+        await addPost(title, comment, user_id);
+        console.log(req.body);
         res.status(200).send('Comentario Ingresado exitosamente');
     } catch (error) {
         res.status(500);
@@ -92,6 +93,7 @@ app.post('/login', vrfCredencial, async (req, res) => {
         const token = jwt.sign({ usuario }, process.env.JWT_SECRET);
         console.log('Token creado exitosamente')
         res.send({token:token});
+        console.log(token)
     } catch (error) {
         console.log(error);
         res.status(error.code || 500).send(error);

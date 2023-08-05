@@ -1,3 +1,4 @@
+const { json } = require('express');
 const jwt = require('jsonwebtoken');
 
 const vrfData = (req, res, next) => {
@@ -28,8 +29,11 @@ const vrfToken = (req, res, next) => {
             return res.status(401).json({ mensaje: 'Token no existe' });
         }
         const token = Authorization.split('Bearer ')[1];
-        const verifyToken = jwt.verify(token, process.env.JWT_SECRET);
-        req.data = verifyToken;
+        const payload = jwt.verify(token, process.env.JWT_SECRET);
+        console.log('==',payload);
+        req.body.user_id = payload.usuario.id;
+        res.json(req.body);
+        console.log(req.body);
         console.log('Token OK');
         next();
     } catch (error) {
