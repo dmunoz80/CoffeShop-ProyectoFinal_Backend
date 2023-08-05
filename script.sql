@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS USUARIOS (
 
 -----------------Datos Tabla Ususarios-------------------
 INSERT INTO USUARIOS values
-(DEFAULT,'John','Doe','Av. Providencia','johndoe@correo.com','jhondoe','https://randomuser.me/api/portraits/men/51.jpg','admin'),
+(DEFAULT,'John','Doe','Av. Providencia','johndoe@correo.com','johndoe','https://randomuser.me/api/portraits/men/51.jpg','admin'),
 (DEFAULT,'Jane','Smith','Av. Pedro Montt','janesmith@correo.com','janesmith','https://randomuser.me/api/portraits/women/17.jpg','admin'),
 (DEFAULT,'Robin','Freeman','3685 Crockett St','robin.freeman@correo.com','robinfreeman','https://randomuser.me/api/portraits/women/19.jpg','user'),
 (DEFAULT,'Jennie','James','1306 Blossom Hill Rd','jennie.james@correo.com','jenniejames','https://randomuser.me/api/portraits/women/56.jpg','user'),
@@ -52,10 +52,15 @@ CREATE TABLE IF NOT EXISTS COMENTARIOS (
 ---------Datos Tabla comentarios-----------------
 INSERT INTO COMENTARIOS values
 (DEFAULT, 'Café en Grano Premium', '¡El café en grano es exquisito! Su aroma y sabor son incomparables. Sin duda, el mejor café que he probado. El despacho fue rápido y el empaque muy bien protegido.',3),
-(DEFAULT, 'Jorge Canales', 'Este café en grano es simplemente espectacular. Cada taza es un placer para los sentidos. El servicio de despacho fue eficiente y el paquete llegó en perfectas condiciones.',4),
+(DEFAULT, 'Café Especial en Grano', 'Este café en grano es simplemente espectacular. Cada taza es un placer para los sentidos. El servicio de despacho fue eficiente y el paquete llegó en perfectas condiciones.',4),
 (DEFAULT, 'Café en Grano Orgánico', 'El café en grano orgánico es delicioso. Tiene un sabor suave y auténtico. Estoy muy satisfecho con la compra y el despacho fue rápido y sin problemas.',5),
 (DEFAULT, 'Café en Grano de Origen', 'Me encanta el café en grano de origen. Cada variedad tiene sus notas distintivas y son todas maravillosas. La entrega fue puntual y el café llegó fresco.',6),
-(DEFAULT, 'Café en Grano para Espresso', 'Este café en grano es ideal para preparar espressos. La crema que produce es perfecta. El servicio de despacho fue rápido y confiable. Seguiré comprando aquí.',7);
+(DEFAULT, 'Café en Grano para Espresso', 'Este café en grano es ideal para preparar espressos. La crema que produce es perfecta. El servicio de despacho fue rápido y confiable. Seguiré comprando aquí.',7),
+(DEFAULT, 'Café en Grano Premium', '¡El café en grano es exquisito! Su aroma y sabor son incomparables. Sin duda, el mejor café que he probado. El despacho fue rápido y el empaque muy bien protegido.',1),
+(DEFAULT, 'Café Especial en Grano', 'Este café en grano es simplemente espectacular. Cada taza es un placer para los sentidos. El servicio de despacho fue eficiente y el paquete llegó en perfectas condiciones.',2),
+(DEFAULT, 'Café en Grano Orgánico', 'El café en grano orgánico es delicioso. Tiene un sabor suave y auténtico. Estoy muy satisfecho con la compra y el despacho fue rápido y sin problemas.',8),
+(DEFAULT, 'Café en Grano de Origen', 'Me encanta el café en grano de origen. Cada variedad tiene sus notas distintivas y son todas maravillosas. La entrega fue puntual y el café llegó fresco.',9),
+(DEFAULT, 'Café en Grano para Espresso', 'Este café en grano es ideal para preparar espressos. La crema que produce es perfecta. El servicio de despacho fue rápido y confiable. Seguiré comprando aquí.',10);
 
 -------------------Tabla usuarios_comentarios-------------------------------
 CREATE TABLE IF NOT EXISTS USUARIOS_COMENTARIOS(
