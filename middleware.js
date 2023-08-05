@@ -30,17 +30,13 @@ const vrfToken = (req, res, next) => {
         }
         const token = Authorization.split('Bearer ')[1];
         const payload = jwt.verify(token, process.env.JWT_SECRET);
-        console.log('==',payload);
         req.body.user_id = payload.usuario.id;
         res.json(req.body);
-        console.log(req.body);
-        console.log('Token OK');
         next();
     } catch (error) {
         res.status(401).json({ mensaje: 'Token No Válido' });
     }
 }
-
 
 module.exports = {
     vrfData,

@@ -19,8 +19,6 @@ const getUser = async (correo, contrasena) => {
     const values = [correo, contrasena];
     const result = await pool.query(query, values);
     return result.rows.length>0 && result.rows[0];
-
-
 }
 
 const addUser = async (nombre,apellido,direccion,correo,contrasena,img,Rol) => {
