@@ -48,7 +48,6 @@ app.post('/comentarios',vrfToken, async (req, res) => {
     try {
         const {title, comment,user_id} = req.body;
         await addPost(title, comment, user_id);
-        console.log(req.body);
         res.status(200).send('Comentario Ingresado exitosamente');
     } catch (error) {
         res.status(500);
