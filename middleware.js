@@ -13,7 +13,6 @@ const vrfData = (req, res, next) => {
 
 const vrfCredencial = (req, res, next) => {
     const { correo, contrasena } = req.body;
-    console.log(req)
     if (!correo || !contrasena) {
         console.log('correo y contraseña son obligatorios')
         return res.status(400).json({ mensaje: 'correo y contraseña son obligatorios' });
