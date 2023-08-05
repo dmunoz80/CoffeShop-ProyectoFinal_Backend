@@ -33,7 +33,7 @@ const addUser = async (nombre,apellido,direccion,correo,contrasena,img,Rol) => {
 };
 
 const getPost = async () => {
-    const query = 'SELECT * FROM comentarios';
+    const query = 'SELECT * FROM comentarios as c INNER JOIN USUARIOS as u ON c.user_id = u.id';
     try {
       const { rows } = await pool.query(query);
       return rows;
