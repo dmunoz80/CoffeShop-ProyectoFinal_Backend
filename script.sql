@@ -30,14 +30,23 @@ CREATE TABLE IF NOT EXISTS USUARIOS (
 
 -----------------Datos Tabla Ususarios-------------------
 INSERT INTO USUARIOS values
-(DEFAULT,'John','Doe','Av. Providencia','johndoe@correo.com','password123','https://randomuser.me/api/portraits/men/51.jpg','user'),
-(DEFAULT,'Jane','Smith','Av. Pedro Montt','janesmith@correo.com','password456','https://randomuser.me/api/portraits/women/17.jpg','admin');
+(DEFAULT,'John','Doe','Av. Providencia','johndoe@correo.com','jhondoe','https://randomuser.me/api/portraits/men/51.jpg','admin'),
+(DEFAULT,'Jane','Smith','Av. Pedro Montt','janesmith@correo.com','janesmith','https://randomuser.me/api/portraits/women/17.jpg','admin'),
+(DEFAULT,'Robin','Freeman','3685 Crockett St','robin.freeman@correo.com','robinfreeman','https://randomuser.me/api/portraits/women/19.jpg','admin'),
+(DEFAULT,'Jennie','James','1306 Blossom Hill Rd','jennie.james@correo.com','jenniejames','https://randomuser.me/api/portraits/women/56.jpg','user'),
+(DEFAULT,'Ann','Gonzalez','4856 Wheeler Ridge Dr','ann.gonzalez@correo.com','anngonzalez','https://randomuser.me/api/portraits/women/0.jpg','user'),
+(DEFAULT,'Marjorie','Fox','7885 Edwards Rd','marjorie.fox@correo.com','marjoriefox','https://randomuser.me/api/portraits/women/13.jpg','user'),
+(DEFAULT,'Justin','Reed','5793 Marsh Ln','justin.reed@correo.com','justinreed','https://randomuser.me/api/portraits/men/58.jpg','admin'),
+(DEFAULT,'Gene','Sanders','5129 Stevens Creek Blvd','gene.sanders@correo.com','genesanders','https://randomuser.me/api/portraits/men/75.jpg','user'),
+(DEFAULT,'Anthony','Graham','7752 Country Club Rd','anthony.graham@correo.com','anthonygraham','https://randomuser.me/api/portraits/men/73.jpg','user'),
+(DEFAULT,'Nathan','Harvey','5630 Washington Ave','nathan.harvey@correo.com','nathanharvey','https://randomuser.me/api/portraits/men/93.jpg','user');
 
 -------------Tabla Comentarios---------------
 CREATE TABLE IF NOT EXISTS COMENTARIOS (
     id SERIAL PRIMARY KEY, 
     titulo VARCHAR(50),
-    comentario VARCHAR(50)
+    comentario VARCHAR(50),
+    user_id VARCHAR
     );
 
 ---------Datos Tabla comentarios-----------------

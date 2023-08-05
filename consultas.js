@@ -15,7 +15,7 @@ const getUsers = async (correo) => {
     return result.rows[0];
 }
 const getUser = async (correo, contrasena) => {
-    const query = 'SELECT nombre,apellido,direccion,correo,contrasena,img,Rol FROM usuarios WHERE correo = $1 AND contrasena = $2';
+    const query = 'SELECT id,nombre,apellido,direccion,correo,contrasena,img,Rol FROM usuarios WHERE correo = $1 AND contrasena = $2';
     const values = [correo, contrasena];
     const result = await pool.query(query, values);
     return result.rows.length>0 && result.rows[0];
@@ -44,12 +44,13 @@ const getPost = async () => {
     }
   };
 
-  const addPost = async (titulo,comentario) => {
-    const query = 'INSERT INTO comentarios VALUES (DEFAULT, $1, $2) RETURNING *';
-    const values = [titulo, comentario];
+  const addPost = async (titulo,comentario,user_id) => {
+    const query = 'INSERT INTO comentarios VALUES (DEFAULT, $1, $2, $3) RETURNING *';
+    const values = [titulo, comentario, user_id];
     const result = await pool.query(query, values);
     return result
   };
+  
 
 const getProduct = async () => {
     const { rows } = await pool.query("SELECT * FROM productos")
