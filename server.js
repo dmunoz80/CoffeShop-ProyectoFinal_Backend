@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
-const {getUsers, getUser, addUser, getPost, addPost,getProduct,addProduct} = require('./consultas');
+const {getUsers, getUser, addUser, getReviews, addPost, addpostContacto,getPostById,getProduct,addProduct} = require('./consultas');
 const { vrfData, vrfCredencial, vrfToken } = require('./middleware');
 
 
@@ -13,6 +13,7 @@ module.exports = app;
 app.use(express.json()) 
 app.use(cors());
 
+//-------------endpoints relacionados a usuarios-----------------------
 
 app.get("/usuarios",vrfToken, async (req, res) => {
     try {
@@ -35,14 +36,26 @@ app.post('/usuarios', vrfData, async (req, res) => {
     }
 });
 
+//-------------endpoints relacionados a Comentarios y Reseñas-----------------------
+
 app.get('/comentarios', async (req, res) => {
     try {
-    const posts = await getPost();
+    const posts = await getReviews();
     res.json(posts);
 } catch (error) {
     res.status(500).json('error!! no fue posible conectarse a la base de datos')
     }
 });
+
+app.get('/contacto', async (req, res) => {
+    try {
+    const posts = await getReviews();
+    res.json(posts);
+} catch (error) {
+    res.status(500).json('error!! no fue posible conectarse a la base de datos')
+    }
+});
+
 
 app.post('/comentarios',vrfToken, async (req, res) => {
     try {
@@ -53,6 +66,27 @@ app.post('/comentarios',vrfToken, async (req, res) => {
         res.status(500);
     }
   });
+  
+app.get ('/comentarios/:id', async (req, res) => {
+    try {
+      const post = await getPostById(req.params.id);
+      res.json(post);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  app.post('/contacto', async (req, res) => {
+    try {
+        const {name,email,phone,message} = req.body;
+        await addpostContacto(name,email,phone,message);
+        res.status(200).send('Mensaje Ingresado exitosamente');
+    } catch (error) {
+        res.status(500);
+    }
+  });
+
+//-------------endpoints relacionados a Productos-----------------------
 
 app.get('/productos', async (req, res) => {
     try {
@@ -62,7 +96,6 @@ app.get('/productos', async (req, res) => {
     res.status(500).json('error!! no fue posible conectarse a la base de datos')
     }
 });
-
 
 app.post('/productos', async (req, res) => {
     try {
@@ -78,6 +111,8 @@ app.post('/productos', async (req, res) => {
     res.status(500);
     }
 });
+
+//-------------endpoints relacionado a Login-----------------------
 
 app.post('/login', vrfCredencial, async (req, res) => {
     try {

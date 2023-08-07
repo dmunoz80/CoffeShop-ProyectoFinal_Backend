@@ -62,6 +62,16 @@ INSERT INTO COMENTARIOS values
 (DEFAULT, 'Café en Grano de Origen', 'Me encanta el café en grano de origen. Cada variedad tiene sus notas distintivas y son todas maravillosas. La entrega fue puntual y el café llegó fresco.',9),
 (DEFAULT, 'Café en Grano para Espresso', 'Este café en grano es ideal para preparar espressos. La crema que produce es perfecta. El servicio de despacho fue rápido y confiable. Seguiré comprando aquí.',10);
 
+
+-------------Tabla Mensajes de contacto---------------
+CREATE TABLE IF NOT EXISTS CONTACTO (
+    id SERIAL PRIMARY KEY, 
+    nombre_completo VARCHAR(50),
+    correo VARCHAR(200),
+    telefono VARCHAR(50),
+    mensaje VARCHAR(200)
+    );
+
 -------------------Tabla usuarios_comentarios-------------------------------
 CREATE TABLE IF NOT EXISTS USUARIOS_COMENTARIOS(
     id SERIAL PRIMARY KEY,

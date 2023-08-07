@@ -10,6 +10,8 @@ const pool = new Pool({
     allowExitOnIdle: true
 })
 
+//-------------Consultas relacionadas a usuarios-----------------------
+
 const getUsers = async (correo) => {
     const { result } = await pool.query('SELECT id,nombre,apellido,direccion,correo,contrasena,img,Rol FROM usuarios WHERE correo = $1', [correo]);
     return result.rows[0];
@@ -32,7 +34,9 @@ const addUser = async (nombre,apellido,direccion,correo,contrasena,img,Rol) => {
     return result
 };
 
-const getPost = async () => {
+//-------------Consultas relacionadas Comentarios y Reseñas-----------------------
+
+const getReviews = async () => {
     const query = 'SELECT * FROM comentarios as c INNER JOIN USUARIOS as u ON c.user_id = u.id';
     try {
       const { rows } = await pool.query(query);
@@ -48,8 +52,27 @@ const getPost = async () => {
     const result = await pool.query(query, values);
     return result
   };
-  
 
+  const getPostById = async (user_id) => {
+    const query = 'SELECT * FROM comentarios WHERE user_id = $1';
+    try {
+      const response = await pool.query(query, [user_id]);
+      return response.rows;
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
+
+  const addpostContacto = async (nombre_completo,correo,telefono,mensaje) => {
+    const query = 'INSERT INTO contacto VALUES (DEFAULT, $1, $2, $3, $4) RETURNING *';
+    const values = [nombre_completo,correo,telefono,mensaje];
+    const result = await pool.query(query, values);
+    return result
+  };
+
+  
+//-------------Consultas relacionadas a productos-----------------------
+  
 const getProduct = async () => {
     const { rows } = await pool.query("SELECT * FROM productos")
     console.log(rows)
@@ -68,8 +91,10 @@ module.exports = {
     getUsers,
     getUser,
     addUser,
-    getPost,
     getProduct,
     addProduct,
+    getReviews,
     addPost,
+    addpostContacto,
+    getPostById,
 };
