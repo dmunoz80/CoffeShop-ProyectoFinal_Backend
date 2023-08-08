@@ -53,16 +53,6 @@ const getReviews = async () => {
     return result
   };
 
-  const getPostById = async (user_id) => {
-    const query = 'SELECT * FROM comentarios WHERE user_id = $1';
-    try {
-      const response = await pool.query(query, [user_id]);
-      return response.rows;
-    } catch (error) {
-      throw new Error(error);
-    }
-  };
-
   const addpostContacto = async (nombre_completo,correo,telefono,mensaje) => {
     const query = 'INSERT INTO contacto VALUES (DEFAULT, $1, $2, $3, $4) RETURNING *';
     const values = [nombre_completo,correo,telefono,mensaje];
@@ -95,6 +85,5 @@ module.exports = {
     addProduct,
     getReviews,
     addPost,
-    addpostContacto,
-    getPostById,
+    addpostContacto
 };

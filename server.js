@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
-const {getUsers, getUser, addUser, getReviews, addPost, addpostContacto,getPostById,getProduct,addProduct} = require('./consultas');
+const {getUsers, getUser, addUser, getReviews, addPost, addpostContacto,getProduct,addProduct} = require('./consultas');
 const { vrfData, vrfCredencial, vrfToken } = require('./middleware');
 
 
@@ -67,14 +67,6 @@ app.post('/comentarios',vrfToken, async (req, res) => {
     }
   });
   
-app.get ('/comentarios/:id', async (req, res) => {
-    try {
-      const post = await getPostById(req.params.id);
-      res.json(post);
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
-  });
 
   app.post('/contacto', async (req, res) => {
     try {
