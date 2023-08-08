@@ -47,15 +47,6 @@ app.get('/comentarios', async (req, res) => {
     }
 });
 
-app.get('/contacto', async (req, res) => {
-    try {
-    const posts = await getReviews();
-    res.json(posts);
-} catch (error) {
-    res.status(500).json('error!! no fue posible conectarse a la base de datos')
-    }
-});
-
 
 app.post('/comentarios',vrfToken, async (req, res) => {
     try {
