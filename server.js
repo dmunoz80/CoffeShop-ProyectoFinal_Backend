@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
-const {getUsers, getUser, addUser, getReviews, addPost, addpostContacto,getProduct,addProduct} = require('./consultas');
+const {getUsers, getUser, addUser, getReviews, addPost, addpostContacto,getProduct,addProduct,createUser} = require('./consultas');
 const { vrfData, vrfCredencial, vrfToken } = require('./middleware');
 
 
@@ -39,15 +39,6 @@ app.post('/usuarios', vrfData, async (req, res) => {
 //-------------endpoints relacionados a Comentarios y Reseñas-----------------------
 
 app.get('/comentarios', async (req, res) => {
-    try {
-    const posts = await getReviews();
-    res.json(posts);
-} catch (error) {
-    res.status(500).json('error!! no fue posible conectarse a la base de datos')
-    }
-});
-
-app.get('/contacto', async (req, res) => {
     try {
     const posts = await getReviews();
     res.json(posts);
@@ -125,3 +116,14 @@ app.post('/login', vrfCredencial, async (req, res) => {
         res.status(error.code || 500).send(error);
     }
 });
+
+app.post('/sign_in',async (req, res) => {
+    try {
+        const userData = req.body
+        await createUser(userData)
+        res.send(201, {message:"usuario creado"})
+    }
+    catch(error) {
+        res.send(500, {message:"No se ha creado el usuario"})
+    }
+})
