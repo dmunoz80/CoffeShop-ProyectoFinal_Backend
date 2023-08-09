@@ -76,6 +76,13 @@ const addProduct = async (nombre,descripcion,precio,imagen) => {
     return result
 }
 
+const createUser = async (user) => {
+    const {firstName, lastName, address, email, password, image } = user
+    const query = "INSERT INTO usuarios VALUES (DEFAULT, $1, $2, $3, $4, $5, $6, 'user')"
+    const values = [firstName, lastName, address, email, password, image]
+    const result = await pool.query(query, values)
+    return result
+}
 
 module.exports = {
     getUsers,
@@ -85,5 +92,6 @@ module.exports = {
     addProduct,
     getReviews,
     addPost,
-    addpostContacto
+    addpostContacto,
+    createUser
 };
