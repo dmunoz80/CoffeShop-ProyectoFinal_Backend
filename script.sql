@@ -71,18 +71,3 @@ CREATE TABLE IF NOT EXISTS CONTACTO (
     telefono VARCHAR(50),
     mensaje VARCHAR(200)
     );
-
--------------------Tabla usuarios_comentarios-------------------------------
-CREATE TABLE IF NOT EXISTS USUARIOS_COMENTARIOS(
-    id SERIAL PRIMARY KEY,
-    usuario_id INT DEFAULT NULL ,
-    comentario_id INT DEFAULT NULL
-);
-
-ALTER TABLE  USUARIOS_COMENTARIOS ADD FOREIGN KEY (usuario_id) REFERENCES USUARIOS (id);
-ALTER TABLE USUARIOS_COMENTARIOS ADD FOREIGN KEY (comentario_id) REFERENCES COMENTARIOS (id);
-
----------------Datos Tabla usuarios_comentarios-----------
-INSERT INTO USUARIOS_COMENTARIOS values
-(DEFAULT, 1,1),
-(DEFAULT, 2,2);
