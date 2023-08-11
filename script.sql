@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS USUARIOS (
     apellido VARCHAR(50), 
     direccion VARCHAR(50), 
     correo VARCHAR(50),
-    contrasena VARCHAR(50),
+    contrasena VARCHAR(250),
     img VARCHAR,
     Rol VARCHAR);
 
