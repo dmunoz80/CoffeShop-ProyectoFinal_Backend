@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
-const {getUsers, getUser,getReviews, addPost, addpostContacto,getProduct,addProduct,createUser} = require('./consultas');
+const {getUser,getReviews, addPost, addpostContacto,getProduct,addProduct,createUser} = require('./consultas');
 const { vrfData, vrfCredencial, vrfToken } = require('./middleware');
 const bcrypt = require('bcryptjs');
 
