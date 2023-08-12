@@ -18,6 +18,39 @@ const getUser = async (correo) => {
     const result = await pool.query(query, values);
     return result.rows.length>0 && result.rows[0];
 }
+
+const createUser = async (user) => {
+  try {
+    const {firstName, lastName, address, email, password, image } = user
+    const userData = await pool.query('SELECT * FROM usuarios WHERE correo = $1', [email]);
+
+    if (userData.rowCount > 0) {
+      throw { code: 401, message: 'Email ya registrado' }
+    }
+
+    bcrypt.genSalt(10, (error, salt) => {
+      if(error) {
+        console.debug('error', error)
+        return error
+      }
+
+      bcrypt.hash(password, salt, async(error, hash) => {
+        if(error) {
+          console.debug('error', error)
+          return error
+        }
+        
+        const query = "INSERT INTO usuarios VALUES (DEFAULT, $1, $2, $3, $4, $5, $6, 'user')"
+        const values = [firstName, lastName, address, email, hash, image]
+        const result = await pool.query(query, values)
+        return result
+      })
+    })
+  } catch(error) {
+    throw new Error
+  }
+}
+
 //-------------Consultas relacionadas Comentarios y Reseñas-----------------------
 
 const getReviews = async () => {
@@ -58,39 +91,6 @@ const addProduct = async (nombre,descripcion,precio,imagen) => {
     const values = [nombre, descripcion, precio, imagen]
     const result = await pool.query(query, values)
     return result
-}
-
-const createUser = async (user) => {
-  try {
-    const {firstName, lastName, address, email, password, image } = user
-    const userData = await pool.query('SELECT * FROM usuarios WHERE correo = $1', [email]);
-
-    if (userData.rowCount > 0) {
-      throw { code: 401, message: 'Email ya registrado' }
-    }
-
-    bcrypt.genSalt(10, (error, salt) => {
-      if(error) {
-        console.debug('error', error)
-        return error
-      }
-
-      bcrypt.hash(password, salt, async(error, hash) => {
-        if(error) {
-          console.debug('error', error)
-          return error
-        }
-        
-        const query = "INSERT INTO usuarios VALUES (DEFAULT, $1, $2, $3, $4, $5, $6, 'user')"
-        const values = [firstName, lastName, address, email, hash, image]
-        const result = await pool.query(query, values)
-        return result
-      })
-    })
-  } catch(error) {
-    throw new Error
-  }
-
 }
 
 module.exports = {
