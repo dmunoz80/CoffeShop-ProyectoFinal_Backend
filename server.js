@@ -117,3 +117,4 @@ app.post('/sign_in',vrfData,async (req, res) => {
         res.send(500, {message:"No se ha creado el usuario"})
     }
 })
+
