@@ -12,7 +12,6 @@ const pool = new Pool({
 
 //-------------Consultas relacionadas a usuarios-----------------------
 
-
 const getUser = async (correo) => {
     const query = 'SELECT id,nombre,apellido,direccion,correo,contrasena,img,Rol FROM usuarios WHERE correo = $1';
     const values = [correo];
