@@ -31,11 +31,13 @@ describe("Pruebas de rutas existentes en la API", () => {
 
     it("Obtener status code 404 al intentar agregar un usuario con datos incompletos", async () => {
         const user = {nombre:"nombreprueba", apellido:"apellidoprueba"};
-        const res = await request(server).post("/usuarios").send(user);
+        const res = await request(server).post("/sign_in").send(user);
 
         const status = res.statusCode;
+        const mensaje = res.body
 
-        expect(status).toBe(404);
+        expect(status).toBe(400);
+        expect(mensaje).toHaveProperty('mensaje', 'Todos los datos son obligatorios');
 
     })
 
