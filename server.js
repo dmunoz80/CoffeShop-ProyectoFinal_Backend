@@ -107,7 +107,7 @@ app.post('/login', vrfCredencial, async (req, res) => {
     }
 });
 
-app.post('/sign_in',async (req, res) => {
+app.post('/sign_in',vrfData,async (req, res) => {
     try {
         const userData = req.body
         await createUser(userData)
