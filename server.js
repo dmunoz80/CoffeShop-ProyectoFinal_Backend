@@ -7,13 +7,15 @@ const {getUser,getReviews, addPost, addpostContacto,getProduct,addProduct,create
 const { vrfData, vrfCredencial, vrfToken } = require('./middleware');
 const bcrypt = require('bcryptjs');
 
+const PORT = process.env.PORT || 3000;
 
-app.listen(3000, console.log("SERVIDOR ENCENDIDO EN EL PUERTO 3000"));
+app.listen(PORT, () => {
+  console.log(`Servidor escuchando en puerto ${PORT}`);
+});
+
 module.exports = app;
-
 app.use(express.json()) 
 app.use(cors());
-
 
 //-------------endpoints relacionados a Comentarios y Reseñas-----------------------
 
