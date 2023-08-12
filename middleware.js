@@ -2,8 +2,8 @@ const { json } = require('express');
 const jwt = require('jsonwebtoken');
 
 const vrfData = (req, res, next) => {
-    const { nombre,apellido,direccion,correo,contrasena,img,Rol } = req.body;
-    if (!nombre || !apellido || !direccion || !correo || !contrasena || !img || !Rol) {
+    const {firstName,lastName,address,email,password} = req.body;
+    if (!firstName || !lastName || !address || !email || !password) {
         console.log('Todos los datos son obligatorios')
         return res.status(400).json({ mensaje: 'Todos los datos son obligatorios' });
     }
