@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
-const {getUsers, getUser, addUser, getReviews, addPost, addpostContacto,getProduct,addProduct,createUser} = require('./consultas');
+const {getUsers, getUser,getReviews, addPost, addpostContacto,getProduct,addProduct,createUser} = require('./consultas');
 const { vrfData, vrfCredencial, vrfToken } = require('./middleware');
 const bcrypt = require('bcryptjs');
 
@@ -13,8 +13,6 @@ module.exports = app;
 
 app.use(express.json()) 
 app.use(cors());
-
-
 
 
 //-------------endpoints relacionados a Comentarios y Reseñas-----------------------
