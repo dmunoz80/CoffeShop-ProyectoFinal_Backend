@@ -12,6 +12,16 @@ const pool = new Pool({
 
 //-------------Consultas relacionadas a usuarios-----------------------
 
+const getUsers = async () => {
+  const query = 'SELECT * FROM usuarios';
+  try {
+    const { rows } = await pool.query(query);
+    return rows;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
 const getUser = async (correo) => {
     const query = 'SELECT id,nombre,apellido,direccion,correo,contrasena,img,Rol FROM usuarios WHERE correo = $1';
     const values = [correo];
@@ -50,7 +60,17 @@ const createUser = async (user) => {
     throw new Error
   }
 }
-
+const updateRolUser = async (id,rol) => {
+  const query ='UPDATE usuarios SET rol = $1 WHERE id = $2 RETURNING *';
+  try {
+    const values =[rol,id]
+    const response = await pool.query(query,values);
+    console.log(values);
+    return response.rows[0];
+  } catch (error) {
+    throw new Error(error);
+  }
+};
 //-------------Consultas relacionadas Comentarios y Reseñas-----------------------
 
 const getReviews = async () => {
@@ -95,10 +115,12 @@ const addProduct = async (nombre,descripcion,precio,imagen) => {
 
 module.exports = {
     getUser,
+    getUsers,
     getProduct,
     addProduct,
     getReviews,
     addPost,
     addpostContacto,
-    createUser
+    createUser,
+    updateRolUser
 };
