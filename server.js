@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
-const {getUser,getReviews, addPost, addpostContacto,getProduct,addProduct,createUser} = require('./consultas');
+const {getUser,getUsers,updateRolUser,getReviews, addPost, addpostContacto,getProduct,addProduct,createUser} = require('./consultas');
 const { vrfData, vrfCredencial, vrfToken } = require('./middleware');
 const bcrypt = require('bcryptjs');
 
@@ -78,6 +78,16 @@ app.post('/productos', async (req, res) => {
 
 //-------------endpoints relacionado a Login-----------------------
 
+app.get('/usuarios', async (req, res) => {
+    try {
+    const posts = await getUsers();
+    res.json(posts);
+} catch (error) {
+    res.status(500).json('error!! no fue posible conectarse a la base de datos')
+    }
+});
+
+
 app.post('/login', vrfCredencial, async (req, res) => {
     try {
         const { correo, contrasena } = req.body;
@@ -118,3 +128,16 @@ app.post('/sign_in',vrfData,async (req, res) => {
     }
 })
 
+app.put("/usuarios/:id", async (req, res) => {
+    try {
+      const {id} = req.params
+      const {rol}= req.body
+      console.log(req.body)
+      const ok = await updateRolUser(id,rol);
+      res.send(ok);
+      console.log(req.params);
+    } catch (error) {
+      console.error(error);
+    }
+
+  });
