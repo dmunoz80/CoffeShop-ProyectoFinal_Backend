@@ -12,7 +12,7 @@ Antes de levantar el proyecto deben crear un archivo ```.env``` con las siguient
 - DB_HOST="tuHost"
 - DB_USERNAME="tuUsername"
 - DB_PASSWORD="tuPassword"
-- DB_NAME="proyectofinal_grupo_4"
+- DB_NAME="NombreBaseDatos"
 - DB_PORT="5432"
 - JWT_SECRET="AA_XX"
 - JWT_EXPIRES_IN="90d"
