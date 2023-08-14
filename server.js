@@ -3,8 +3,8 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
-const {getUser,getUsers,updateRolUser,getReviews, addPost, addpostContacto,getProduct,addProduct,createUser} = require('./consultas');
-const { vrfData, vrfCredencial, vrfToken } = require('./middleware');
+const {getUser,getUsers,updateRolUser,getReviews, addPost, addpostContacto,getProduct,addProduct,createUser} = require('./src/Consultas/consultas');
+const { vrfData, vrfCredencial, vrfToken } = require('./src/middlewares/middleware');
 const bcrypt = require('bcryptjs');
 
 const PORT = process.env.PORT || 3000;
