@@ -1,9 +1,10 @@
 ## COFFESHOP-PROYECTOFINAL_BACKEND
 
-
-##Integrantes grupo 4
+#Integrantes grupo 4
 -Felipe Palma
+
 -Marcelo Perez
+
 -Danilo Muñoz
 
 Antes de levantar el proyecto deben crear un archivo ```.env``` con las siguientes variables:
