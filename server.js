@@ -7,6 +7,7 @@ const {getUser,getUsers,updateRolUser,getReviews, addPost, addpostContacto,getPr
 const { vrfData, vrfCredencial, vrfToken } = require('./src/middlewares/middleware');
 const bcrypt = require('bcryptjs');
 
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
